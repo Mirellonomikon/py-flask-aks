@@ -31,12 +31,12 @@ jobs:
       # Checks out the repository this fil e is in
       - uses: actions/checkout@v3
 
-      # Determine if there are changes in the src directory
+       # Determine if there are changes in the src directory
       - name: Check for changes
         id: changes
         run: echo ::set-output name=changed::$(git diff --name-only ${{ github.sha }} ${{ github.sha }}~1 | grep '^src/' || echo "false")
-
-      # Logs in with your Azure credentials
+      
+        # Logs in with your Azure credentials
       - name: Azure login
         uses: azure/login@v1.4.6
         with:
