@@ -12,6 +12,7 @@ on:
       - 'terraform.tfvars'
       - '.github/workflows/terraform.yml'
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
