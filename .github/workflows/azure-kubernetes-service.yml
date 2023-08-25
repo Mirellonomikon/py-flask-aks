@@ -34,7 +34,7 @@ jobs:
        # Determine if there are changes in the src directory
       - name: Check for changes
         id: changes
-        run: echo ::set-output name=changed::$(git diff --name-only ${{ github.sha }} ${{ github.sha }}~1 | grep '^src/' || echo "false")
+        run: echo ::set-output name=changed::$(git diff --name-only ${{ github.sha }} ${{ github.sha }}~1 | grep '^./src/' || echo "false")
       
         # Logs in with your Azure credentials
       - name: Azure login
