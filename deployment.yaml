@@ -13,7 +13,7 @@ spec:
         app: pyapp
     spec:
       containers:
-        - name: pyapp-container
+        - name: pyappcontainer
           image: akscontainerregjc.azurecr.io/pyappcontainer:latest
           ports:
             - containerPort: 5000
