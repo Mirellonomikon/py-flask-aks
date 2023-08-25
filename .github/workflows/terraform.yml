@@ -6,7 +6,11 @@ on:
     # when terraform folder changes or this file
     paths:
       - 'terraform/**'
-      - '.github/workflows/terraform-aks.yml'
+      - 'main.tf'
+      - 'variables.tf'
+      - 'outputs.tf'
+      - 'terraform.tfvars'
+      - '.github/workflows/terraform.yml'
   pull_request:
 
 permissions:
