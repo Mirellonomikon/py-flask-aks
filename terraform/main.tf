@@ -30,3 +30,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin    = "kubenet" # azure (CNI)
   }
 }
+
+resource "kubernetes_namespace" "ns" {
+  metadata {
+    name = "new-default"
+  }
+
+  depends_on = [azurerm_kubernetes_cluster.aks]
+}
