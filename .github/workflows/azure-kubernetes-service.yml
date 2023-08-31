@@ -14,6 +14,7 @@ env:
   RESOURCE_GROUP: "aks_terraform_rg"
   CLUSTER_NAME: "aks-cluster"
   DEPLOYMENT_MANIFEST_PATH: "deployment.yaml"
+  NAMESPACE_MANIFEST_PATH : "namespace_deploy.yaml"
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -78,6 +79,11 @@ jobs:
           admin: 'false'
           use-kubelogin: 'true'
 
+      # Creates the namespace
+      - name: Create namespace
+        run: |
+          kubectl apply -f ${{ env.NAMESPACE_MANIFEST_PATH }}
+
       # Deploys application based on given manifest file
       - name: Deploys application
         uses: Azure/k8s-deploy@v4
@@ -86,3 +92,4 @@ jobs:
           manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
           images: |
             ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest
+          namespace: pyapp-ns
