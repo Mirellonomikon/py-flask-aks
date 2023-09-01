@@ -48,7 +48,7 @@ jobs:
 
       - name: Purge untagged manifests in ACR
         run: |
-          az acr run --registry ${{ env.AZURE_CONTAINER_REGISTRY }} --cmd 'acr purge --untagged --filter ${{ env.CONTAINER_NAME }}:.*' /dev/null
+          az acr run --registry ${{ env.AZURE_CONTAINER_REGISTRY }} --cmd 'acr purge --untagged --filter ${{ env.CONTAINER_NAME }}:.* --ago 10m' /dev/null
 
   deploy:
     permissions:
