@@ -79,7 +79,7 @@ jobs:
           admin: 'false'
           use-kubelogin: 'true'
 
-      # # Creates the namespace
+      # Creates the namespace
       # - name: Create namespace
       #   run: |
       #     kubectl apply -f ${{ env.NAMESPACE_MANIFEST_PATH }}
@@ -92,4 +92,4 @@ jobs:
           manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
           images: |
             ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest
-          namespace: pyapp-ns
+          namespace: default
