@@ -46,6 +46,10 @@ jobs:
         run: |
           az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
 
+      - name: Purge untagged manifests in ACR
+        run: |
+          az acr repository purge --name ${{ env.AZURE_CONTAINER_REGISTRY }} --repository ${{ env.CONTAINER_NAME }} --untagged --yes
+
   deploy:
     permissions:
       actions: read
