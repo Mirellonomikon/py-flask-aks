@@ -41,14 +41,14 @@ jobs:
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
 
-      # Builds and pushes an image up to your Azure Container Registry
-      - name: Build and push image to ACR
-        run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
+      # # Builds and pushes an image up to your Azure Container Registry
+      # - name: Build and push image to ACR
+      #   run: |
+      #     az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:latest --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
 
-      - name: Purge untagged manifests in ACR
+      - name: Delete untagged manifests in ACR
         run: |
-          az acr repository purge --name ${{ env.AZURE_CONTAINER_REGISTRY }} --repository ${{ env.CONTAINER_NAME }} --untagged --yes
+          az acr repository delete-untagged --name ${{ env.AZURE_CONTAINER_REGISTRY }} --resource-group ${{ env.RESOURCE_GROUP }} 
 
   deploy:
     permissions:
