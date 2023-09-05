@@ -8,7 +8,6 @@ on:
       - "src/**"
   workflow_dispatch:
   workflow_run:
-    branches: ["main"]
     workflows: "Terraform AKS Deployment"
     types:
       - completed
