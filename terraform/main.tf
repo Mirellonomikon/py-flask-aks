@@ -30,3 +30,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin    = "kubenet" # azure (CNI)
   }
 }
+
+resource "azurerm_role_assignment" "cluster-role" {
+  
+}
