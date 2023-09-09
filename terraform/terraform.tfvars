@@ -4,3 +4,7 @@ cluster_name        = "aks-cluster"
 kubernetes_version  = "1.27.3"
 system_node_count   = 1
 node_resource_group = "aks_terraform_node_rg"
+storage_resource_group = "rg_terraform"
+storage_account_name = "stterrastate"
+storage_container_name = "statecontainer"
+container_registry_name = "akscontainerregjc"

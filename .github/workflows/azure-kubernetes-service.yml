@@ -1,19 +1,19 @@
 name: Build and deploy an app to AKS
 
 on:
+  workflow_run:
+    workflows: "Terraform AKS Deployment"
+    types: 
+      - completed
   push:
     branches: ["main"]
     # when src content is updated
     paths:
       - "src/**"
   workflow_dispatch:
-  workflow_run:
-    workflows: "Terraform AKS Deployment"
-    types:
-      - completed
 
 env:
-  AZURE_CONTAINER_REGISTRY: "akscontainerregjc"
+  AZURE_CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
   CONTAINER_NAME: "pyappcontainer"
   RESOURCE_GROUP: "aks_terraform_rg"
   CLUSTER_NAME: "aks-cluster"
@@ -34,7 +34,7 @@ jobs:
     defaults:
       run:
         working-directory: ./src
-
+    
     steps:
       # Checks out the repository this fil e is in
       - uses: actions/checkout@v3
