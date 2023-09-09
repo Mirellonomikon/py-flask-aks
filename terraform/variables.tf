@@ -24,21 +24,21 @@ variable "node_resource_group" {
 }
 
 variable "storage_resource_group" {
-  type = string
+  type        = string
   description = "Name for the storage account resource group"
 }
 
 variable "storage_account_name" {
-  type = string
+  type        = string
   description = "Name for the storage account"
 }
 
 variable "storage_container_name" {
-  type = string
+  type        = string
   description = "Name for the storage container"
 }
 
 variable "container_registry_name" {
-  type = string
+  type        = string
   description = "Name for the container registry"
 }
