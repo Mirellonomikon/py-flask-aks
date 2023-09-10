@@ -1,22 +1,3 @@
-resource "azurerm_resource_group" "srg" {
-  name     = var.storage_resource_group
-  location = var.location
-}
-
-resource "azurerm_storage_account" "statestorage" {
-  name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.srg.name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-resource "azurerm_storage_container" "statecontainer" {
-  name                  = var.storage_container_name
-  storage_account_name  = azurerm_storage_account.statestorage.name
-  container_access_type = "private"
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
@@ -63,8 +44,8 @@ resource "azurerm_role_assignment" "aksrole" {
   principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
 }
 
-# resource "azurerm_role_assignment" "agentpoolrole" {
-#   scope = azurerm_container_registry.acr.id
-#   role_definition_name = "AcrPull"
-#   principal_id = azurerm_resource_group.aks.node_resource_group.kubelet_identity[0].object_id
-# }
+resource "azurerm_role_assignment" "agentpoolrole" {
+  scope = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPull"
+  principal_id = azurerm_kubernetes_cluster.aks.node_resource_group.kubelet_identity[0].object_id
+}
