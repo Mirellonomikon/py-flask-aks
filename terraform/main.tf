@@ -44,9 +44,13 @@ resource "azurerm_role_assignment" "aksrole" {
   principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
 }
 
+data "azurerm_user_assigned_identity" "node_pool_identity" {
+  name                = "aks-cluster-agentpool"
+  resource_group_name = var.node_resource_group
+}
 
 resource "azurerm_role_assignment" "agentpoolrole" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
-  principal_id         = azurerm_kubernetes_cluster.aks.node_resource_group.kubelet_identity[0].object_id
+  principal_id         = data.azurerm_user_assigned_identity.node_pool_identity.principal_id
 }
