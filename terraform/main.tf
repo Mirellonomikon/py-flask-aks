@@ -54,5 +54,5 @@ data "azurerm_user_assigned_identity" "aks_node_identity" {
 resource "azurerm_role_assignment" "acragentpool_role" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
-  principal_id         = data.azurerm_user_assigned_identity.aks_node_identity.object_id
+  principal_id         = data.azurerm_user_assigned_identity.aks_node_identity.id
 }
