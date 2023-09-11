@@ -42,5 +42,17 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "azurerm_role_assignment" "acr_role" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
-  principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
+  principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+}
+
+data "azurerm_user_assigned_identity" "aks_node_identity" {
+  name                = "aks-cluster-agentpool"  # Assuming this is the name of the managed identity
+  resource_group_name = var.node_resource_group
+}
+
+# give acrpull role to aks-cluster-agentpool (managed identity) for the container registry
+resource "azurerm_role_assignment" "acragentpool_role" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPull"
+  principal_id         = data.azurerm_user_assigned_identity.aks_node_identity.object_id
 }
