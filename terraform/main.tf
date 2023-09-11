@@ -46,7 +46,7 @@ resource "azurerm_role_assignment" "acr_role" {
 }
 
 data "azurerm_user_assigned_identity" "aks_node_identity" {
-  name                = "aks-cluster-agentpool"  # Assuming this is the name of the managed identity
+  name                = "aks-cluster-agentpool" # Assuming this is the name of the managed identity
   resource_group_name = var.node_resource_group
 }
 
